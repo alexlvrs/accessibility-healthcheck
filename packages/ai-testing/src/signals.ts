@@ -5,7 +5,7 @@
 import type { ComponentMetadata } from "./extract.js";
 
 export interface Signal {
-  type: "color-contrast" | "touch-target" | "spacing" | "label" | "keyboard" | "state" | "focus";
+  type: "color-contrast" | "apca-contrast" | "touch-target" | "spacing" | "label" | "keyboard" | "state" | "focus";
   variant?: string;
   value: number | string | boolean;
   unit?: string;
@@ -31,6 +31,50 @@ function contrastRatio(hex1: string, hex2: string): number {
   return (lighter + 0.05) / (darker + 0.05);
 }
 
+// --- APCA (Accessible Perceptual Contrast Algorithm) ---
+
+function sRGBtoY(hex: string): number {
+  const coeffs = [0.2126729, 0.7151522, 0.0721750];
+  const rgb = hex
+    .replace("#", "")
+    .match(/.{2}/g)!
+    .map((c) => {
+      const val = parseInt(c, 16) / 255;
+      return val <= 0.04045 ? val / 12.92 : ((val + 0.055) / 1.055) ** 2.4;
+    });
+  return rgb[0] * coeffs[0] + rgb[1] * coeffs[1] + rgb[2] * coeffs[2];
+}
+
+function apcaContrast(textHex: string, bgHex: string): number {
+  const Ytxt = sRGBtoY(textHex);
+  const Ybg = sRGBtoY(bgHex);
+
+  // Soft clamp near black
+  const txtY = Ytxt < 0.022 ? Ytxt + (0.022 - Ytxt) ** 1.414 : Ytxt;
+  const bgY = Ybg < 0.022 ? Ybg + (0.022 - Ybg) ** 1.414 : Ybg;
+
+  // Polarity-aware contrast (output scaled to Lc 0-108 range)
+  let Lc: number;
+  if (bgY > txtY) {
+    // Dark text on light background (normal polarity)
+    Lc = (bgY ** 0.56 - txtY ** 0.57) * 1.14 * 100;
+  } else {
+    // Light text on dark background (reverse polarity)
+    Lc = (bgY ** 0.65 - txtY ** 0.62) * 1.14 * 100;
+  }
+
+  // Output clamp: values below ±8 are considered zero
+  if (Math.abs(Lc) < 8) {
+    return 0;
+  } else if (Lc > 0) {
+    Lc -= 7;
+  } else {
+    Lc += 7;
+  }
+
+  return Math.round(Lc * 100) / 100;
+}
+
 export function deriveSignals(metadata: ComponentMetadata): Signal[] {
   const signals: Signal[] = [];
 
@@ -44,6 +88,13 @@ export function deriveSignals(metadata: ComponentMetadata): Signal[] {
         variant: variant.name,
         value: Math.round(contrastRatio(bg, fg) * 100) / 100,
         unit: ":1",
+        token: "--ds-color-bg-primary",
+      });
+      signals.push({
+        type: "apca-contrast",
+        variant: variant.name,
+        value: apcaContrast(fg, bg),
+        unit: "Lc",
         token: "--ds-color-bg-primary",
       });
     }

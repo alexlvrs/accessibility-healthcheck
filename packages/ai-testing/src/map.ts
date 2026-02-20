@@ -14,6 +14,7 @@ export interface Assertion {
 
 const WCAG_MAP: Record<string, { wcag: string; level: "A" | "AA" | "AAA"; threshold: number }> = {
   "color-contrast": { wcag: "1.4.3", level: "AA", threshold: 4.5 },
+  "apca-contrast": { wcag: "3.0-draft", level: "AA", threshold: 60 },
   "touch-target": { wcag: "2.5.5", level: "AAA", threshold: 44 },
 };
 
@@ -25,7 +26,12 @@ export function mapToAssertions(signals: Signal[]): Assertion[] {
       wcag: rule.wcag,
       level: rule.level,
       threshold: rule.threshold,
-      pass: typeof signal.value === "number" ? signal.value >= rule.threshold : true,
+      pass:
+        typeof signal.value === "number"
+          ? signal.type === "apca-contrast"
+            ? Math.abs(signal.value) >= rule.threshold
+            : signal.value >= rule.threshold
+          : true,
     };
   });
 }
