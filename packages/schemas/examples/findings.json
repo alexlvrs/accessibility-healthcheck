@@ -8,14 +8,17 @@
     "contexts": ["desktop", "mobile"]
   },
   "summary": {
-    "total": 5,
+    "total": 6,
     "critical": 0,
     "major": 1,
     "minor": 2,
-    "info": 1,
+    "info": 2,
     "requiresHumanReview": 2
   },
   "findings": [
+    {
+      "_comment": "--- WCAG 2.2 Findings ---"
+    },
     {
       "id": "btn-001",
       "signal": "color-contrast",
@@ -29,26 +32,6 @@
         "tokens": ["--ds-color-bg-primary", "--ds-color-text-on-primary"]
       },
       "recommendation": "No action needed. Consider AAA targets (7:1) for critical actions.",
-      "requiresHumanReview": false,
-      "trace": {
-        "figmaNodeId": "18:1193",
-        "storyId": "inputs-button--primary",
-        "tokenName": "--ds-color-bg-primary"
-      }
-    },
-    {
-      "id": "btn-001a",
-      "signal": "apca-contrast",
-      "severity": "info",
-      "confidence": "ai-assessed",
-      "wcag": { "criterion": "3.0-draft", "level": "AA", "title": "APCA Contrast (Body Text)" },
-      "description": "All button variants meet APCA minimum Lc 60 for body text. APCA provides perceptually uniform contrast measurement for WCAG 3.0.",
-      "evidence": {
-        "expected": ">= |Lc 60|",
-        "actual": "Primary Lc -76.72, Secondary Lc -77.53, Danger Lc -80.07",
-        "tokens": ["--ds-color-bg-primary", "--ds-color-text-on-primary"]
-      },
-      "recommendation": "No action needed. APCA values are negative (light text on dark background). All variants exceed the Lc 60 threshold for body text.",
       "requiresHumanReview": false,
       "trace": {
         "figmaNodeId": "18:1193",
@@ -124,6 +107,29 @@
       "requiresHumanReview": true,
       "trace": {
         "storyId": "inputs-button--primary"
+      }
+    },
+    {
+      "_comment": "--- APCA / WCAG 3.0 Draft Findings ---"
+    },
+    {
+      "id": "btn-006",
+      "signal": "apca-contrast",
+      "severity": "info",
+      "confidence": "ai-assessed",
+      "wcag": { "criterion": "3.0-draft", "level": "AA", "title": "APCA Contrast (Body Text)" },
+      "description": "All button variants meet APCA minimum Lc 60 for body text. APCA provides perceptually uniform contrast measurement for WCAG 3.0.",
+      "evidence": {
+        "expected": ">= |Lc 60|",
+        "actual": "Primary Lc -76.72, Secondary Lc -77.53, Danger Lc -80.07",
+        "tokens": ["--ds-color-bg-primary", "--ds-color-text-on-primary"]
+      },
+      "recommendation": "No action needed. APCA values are negative (light text on dark background). All variants exceed the Lc 60 threshold for body text.",
+      "requiresHumanReview": false,
+      "trace": {
+        "figmaNodeId": "18:1193",
+        "storyId": "inputs-button--primary",
+        "tokenName": "--ds-color-bg-primary"
       }
     }
   ]

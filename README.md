@@ -46,12 +46,13 @@ Extract  -->  Signals  -->  Map  -->  Simulate  -->  Generate
 
 ## Accessibility Standards
 
-Based on [WCAG 2.2](https://www.w3.org/TR/WCAG22/) and [WCAG 3.0 (draft)](https://www.w3.org/TR/wcag-3.0/):
+### WCAG 2.2
+
+Based on [WCAG 2.2](https://www.w3.org/TR/WCAG22/):
 
 - **1.4.3** Contrast (Minimum) — 4.5:1 for normal text, 3:1 for large text (Level AA)
 - **1.4.6** Contrast (Enhanced) — 7:1 for normal text, 4.5:1 for large text (Level AAA)
 - **1.4.11** Non-text Contrast — 3:1 for UI components and graphical objects (Level AA)
-- **APCA** (WCAG 3.0-draft) — Perceptually uniform contrast using Lightness Contrast (Lc) scale. Polarity-aware: reports both WCAG 2.x ratio and APCA Lc for each color pair. Threshold: |Lc 60| for body text.
 - **2.1.1** Keyboard — All functionality operable via keyboard (Level A)
 - **2.4.3** Focus Order — Logical and meaningful navigation sequence (Level A)
 - **2.4.7** Focus Visible — Keyboard focus indicator is visible (Level AA)
@@ -60,6 +61,14 @@ Based on [WCAG 2.2](https://www.w3.org/TR/WCAG22/) and [WCAG 3.0 (draft)](https:
 - **3.3.1** Error Identification — Errors are identified and described in text (Level A)
 - **3.3.2** Labels or Instructions — Input fields have labels or instructions (Level A)
 - **4.1.2** Name, Role, Value — Programmatic name and role for all UI components (Level A)
+
+### APCA (WCAG 3.0 Draft)
+
+Based on [WCAG 3.0 (draft)](https://www.w3.org/TR/wcag-3.0/) and the [APCA algorithm](https://git.apcacontrast.com/):
+
+- **APCA Contrast** — Perceptually uniform contrast using the Lightness Contrast (Lc) scale
+- **Polarity-aware** — Dark-on-light and light-on-dark produce different Lc values (positive and negative respectively)
+- **Threshold** — |Lc 60| minimum for body text (16px, weight 400); reported alongside WCAG 2.x ratio for each color pair
 
 ## Getting Started
 
