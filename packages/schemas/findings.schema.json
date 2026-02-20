@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "findings.schema.json",
+  "title": "Accessibility Findings",
+  "description": "Structured accessibility findings produced by the testing pipeline",
+  "type": "object",
+  "required": ["meta", "findings"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["componentId", "timestamp", "contexts"],
+      "properties": {
+        "componentId": { "type": "string" },
+        "componentName": { "type": "string" },
+        "testingPackId": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "pipelineVersion": { "type": "string" },
+        "contexts": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Context IDs evaluated"
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "properties": {
+        "total": { "type": "integer" },
+        "critical": { "type": "integer" },
+        "major": { "type": "integer" },
+        "minor": { "type": "integer" },
+        "info": { "type": "integer" },
+        "requiresHumanReview": { "type": "integer" }
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "signal", "severity", "wcag", "description"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique finding identifier"
+          },
+          "signal": {
+            "type": "string",
+            "enum": ["color-contrast", "touch-target", "spacing", "label", "keyboard", "state", "focus", "error-handling"],
+            "description": "Signal type that triggered this finding"
+          },
+          "severity": {
+            "type": "string",
+            "enum": ["critical", "major", "minor", "info"],
+            "description": "Finding severity"
+          },
+          "confidence": {
+            "type": "string",
+            "enum": ["ai-assessed", "human-verified"],
+            "description": "Whether this finding has been human-verified"
+          },
+          "wcag": {
+            "type": "object",
+            "properties": {
+              "criterion": { "type": "string", "description": "WCAG SC number (e.g. '1.4.3')" },
+              "level": { "type": "string", "enum": ["A", "AA", "AAA"] },
+              "title": { "type": "string" }
+            },
+            "required": ["criterion", "level"]
+          },
+          "description": {
+            "type": "string",
+            "description": "Human-readable description of the finding"
+          },
+          "evidence": {
+            "type": "object",
+            "description": "Supporting data for the finding",
+            "properties": {
+              "expected": { "type": "string" },
+              "actual": { "type": "string" },
+              "tokens": { "type": "array", "items": { "type": "string" } },
+              "variant": { "type": "string" },
+              "context": { "type": "string" }
+            }
+          },
+          "recommendation": {
+            "type": "string",
+            "description": "Specific remediation guidance"
+          },
+          "requiresHumanReview": {
+            "type": "boolean",
+            "description": "Whether this finding needs human verification"
+          },
+          "trace": {
+            "type": "object",
+            "description": "Traceability back to source",
+            "properties": {
+              "figmaNodeId": { "type": "string" },
+              "storyId": { "type": "string" },
+              "tokenName": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

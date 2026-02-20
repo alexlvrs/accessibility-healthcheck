@@ -1,0 +1,48 @@
+{
+  "id": "button",
+  "name": "Button",
+  "category": "inputs",
+  "layers": {
+    "figma": {
+      "fileKey": "example-file-key",
+      "nodeId": "18:1193",
+      "componentSetName": "Button",
+      "variants": [
+        { "name": "Variant=Primary", "nodeId": "18:1194", "properties": { "variant": "primary" } },
+        { "name": "Variant=Secondary", "nodeId": "18:1196", "properties": { "variant": "secondary" } },
+        { "name": "Variant=Danger", "nodeId": "18:1198", "properties": { "variant": "danger" } }
+      ]
+    },
+    "storybook": {
+      "componentId": "inputs-button",
+      "stories": [
+        { "storyId": "inputs-button--primary", "name": "Primary", "args": { "variant": "primary" } },
+        { "storyId": "inputs-button--secondary", "name": "Secondary", "args": { "variant": "secondary" } },
+        { "storyId": "inputs-button--danger", "name": "Danger", "args": { "variant": "danger" } },
+        { "storyId": "inputs-button--disabled", "name": "Disabled", "args": { "disabled": true } }
+      ]
+    },
+    "tokens": {
+      "color": [
+        "--ds-color-bg-primary",
+        "--ds-color-text-on-primary"
+      ],
+      "spacing": [
+        "--ds-space-inline",
+        "--ds-space-block"
+      ],
+      "typography": [
+        "--ds-font-family",
+        "--ds-font-size-body",
+        "--ds-font-weight-medium",
+        "--ds-line-height-body"
+      ],
+      "sizing": []
+    },
+    "code": {
+      "package": "your-design-system",
+      "componentName": "Button",
+      "importPath": "your-design-system"
+    }
+  }
+}

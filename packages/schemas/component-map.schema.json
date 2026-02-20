@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "component-map.schema.json",
+  "title": "Component Map",
+  "description": "Links a design system component to its Figma, Storybook, token, and code representations",
+  "type": "object",
+  "required": ["id", "name", "category", "layers"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique component identifier (e.g. 'button', 'text-field')"
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable component name"
+    },
+    "category": {
+      "type": "string",
+      "enum": ["data-display", "feedback", "inputs", "navigation", "surfaces"],
+      "description": "Component category in the design system"
+    },
+    "layers": {
+      "type": "object",
+      "description": "Component representations across layers",
+      "properties": {
+        "figma": {
+          "type": "object",
+          "properties": {
+            "fileKey": { "type": "string" },
+            "nodeId": { "type": "string" },
+            "componentSetName": { "type": "string" },
+            "variants": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "nodeId": { "type": "string" },
+                  "properties": { "type": "object" }
+                },
+                "required": ["name", "nodeId"]
+              }
+            }
+          }
+        },
+        "storybook": {
+          "type": "object",
+          "properties": {
+            "componentId": { "type": "string" },
+            "stories": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "storyId": { "type": "string" },
+                  "name": { "type": "string" },
+                  "args": { "type": "object" }
+                },
+                "required": ["storyId", "name"]
+              }
+            }
+          }
+        },
+        "tokens": {
+          "type": "object",
+          "properties": {
+            "color": { "type": "array", "items": { "type": "string" } },
+            "spacing": { "type": "array", "items": { "type": "string" } },
+            "typography": { "type": "array", "items": { "type": "string" } },
+            "sizing": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "code": {
+          "type": "object",
+          "properties": {
+            "package": { "type": "string" },
+            "componentName": { "type": "string" },
+            "importPath": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

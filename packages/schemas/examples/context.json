@@ -1,0 +1,18 @@
+{
+  "id": "mobile",
+  "name": "Mobile Touch",
+  "description": "User on a mobile device with touch-only interaction and a small viewport",
+  "conditions": {
+    "inputMethod": "touch",
+    "viewportConstraint": "small",
+    "lighting": "normal",
+    "bandwidth": "medium",
+    "timePressure": false,
+    "assistiveTech": false
+  },
+  "thresholdOverrides": {
+    "minTouchTarget": 44,
+    "minContrastRatio": 4.5,
+    "minSpacing": 8
+  }
+}

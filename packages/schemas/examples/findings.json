@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "componentId": "button",
+    "componentName": "Button",
+    "testingPackId": "ds.button.primary",
+    "timestamp": "2025-02-10T16:34:00Z",
+    "pipelineVersion": "0.1.0",
+    "contexts": ["desktop", "mobile"]
+  },
+  "summary": {
+    "total": 5,
+    "critical": 0,
+    "major": 1,
+    "minor": 2,
+    "info": 1,
+    "requiresHumanReview": 2
+  },
+  "findings": [
+    {
+      "id": "btn-001",
+      "signal": "color-contrast",
+      "severity": "info",
+      "confidence": "ai-assessed",
+      "wcag": { "criterion": "1.4.3", "level": "AA", "title": "Contrast (Minimum)" },
+      "description": "All button variants pass WCAG AA contrast requirements with white text on colored backgrounds",
+      "evidence": {
+        "expected": ">= 4.5:1",
+        "actual": "Primary 5.83:1, Secondary 6.01:1, Danger 6.62:1",
+        "tokens": ["--ds-color-bg-primary", "--ds-color-text-on-primary"]
+      },
+      "recommendation": "No action needed. Consider AAA targets (7:1) for critical actions.",
+      "requiresHumanReview": false,
+      "trace": {
+        "figmaNodeId": "18:1193",
+        "storyId": "inputs-button--primary",
+        "tokenName": "--ds-color-bg-primary"
+      }
+    },
+    {
+      "id": "btn-002",
+      "signal": "color-contrast",
+      "severity": "major",
+      "confidence": "ai-assessed",
+      "wcag": { "criterion": "1.4.6", "level": "AAA", "title": "Contrast (Enhanced)" },
+      "description": "No button variant meets WCAG AAA enhanced contrast (7:1). Users in bright environments or with low vision may have difficulty.",
+      "evidence": {
+        "expected": ">= 7.0:1",
+        "actual": "Primary 5.83:1, Secondary 6.01:1, Danger 6.62:1",
+        "tokens": ["--ds-color-bg-primary"],
+        "context": "low-vision"
+      },
+      "recommendation": "Consider providing a high-contrast theme or increasing background darkness for AAA compliance.",
+      "requiresHumanReview": true,
+      "trace": {
+        "figmaNodeId": "18:1194",
+        "tokenName": "--ds-color-bg-primary"
+      }
+    },
+    {
+      "id": "btn-003",
+      "signal": "touch-target",
+      "severity": "minor",
+      "confidence": "ai-assessed",
+      "wcag": { "criterion": "2.5.5", "level": "AAA", "title": "Target Size (Enhanced)" },
+      "description": "Default button height is 36px, below the WCAG AAA recommendation of 44x44 CSS pixels",
+      "evidence": {
+        "expected": ">= 44px (WCAG 2.5.5 AAA)",
+        "actual": "36px height",
+        "variant": "Default"
+      },
+      "recommendation": "Passes WCAG AA (2.5.8, 24px minimum). For AAA, increase to 44px or provide a comfortable density variant for touch contexts.",
+      "requiresHumanReview": true,
+      "trace": {
+        "figmaNodeId": "18:1194",
+        "storyId": "inputs-button--primary"
+      }
+    },
+    {
+      "id": "btn-004",
+      "signal": "spacing",
+      "severity": "info",
+      "confidence": "ai-assessed",
+      "wcag": { "criterion": "2.5.8", "level": "AA", "title": "Target Size (Minimum)" },
+      "description": "Spacing between button variants is 40px, well above minimum requirements",
+      "evidence": {
+        "expected": "Sufficient spacing per WCAG 2.5.8",
+        "actual": "40px gap"
+      },
+      "recommendation": "No action needed.",
+      "requiresHumanReview": false
+    },
+    {
+      "id": "btn-005",
+      "signal": "focus",
+      "severity": "minor",
+      "confidence": "ai-assessed",
+      "wcag": { "criterion": "2.4.7", "level": "AA", "title": "Focus Visible" },
+      "description": "Focus indicator not verifiable from static Figma designs. Requires runtime verification in Storybook.",
+      "evidence": {
+        "expected": "Visible focus ring on keyboard focus",
+        "actual": "Not determinable from Figma"
+      },
+      "recommendation": "Verify focus indicator in Storybook with keyboard navigation. Ensure focus ring meets 2px minimum width and 3:1 contrast against adjacent colors.",
+      "requiresHumanReview": true,
+      "trace": {
+        "storyId": "inputs-button--primary"
+      }
+    }
+  ]
+}

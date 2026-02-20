@@ -1,0 +1,15 @@
+{
+  "name": "@a11y-poc/ai-testing",
+  "version": "0.1.0",
+  "description": "CLI for AI-assisted accessibility testing pipeline",
+  "type": "module",
+  "scripts": {
+    "health": "tsx src/cli.ts health",
+    "extract": "tsx src/cli.ts extract",
+    "run": "tsx src/cli.ts run",
+    "check": "tsx src/check.ts"
+  },
+  "dependencies": {
+    "tsx": "^4.21.0"
+  }
+}

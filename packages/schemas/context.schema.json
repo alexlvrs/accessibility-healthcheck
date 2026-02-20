@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "context.schema.json",
+  "title": "Testing Context",
+  "description": "Operational conditions that affect accessibility evaluation thresholds and priorities",
+  "type": "object",
+  "required": ["id", "name", "conditions"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Context identifier (e.g. 'desktop', 'mobile', 'keyboard-only')"
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable context name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the operational scenario"
+    },
+    "conditions": {
+      "type": "object",
+      "description": "Environmental and interaction conditions",
+      "properties": {
+        "inputMethod": {
+          "type": "string",
+          "enum": ["mouse-keyboard", "touch", "keyboard-only", "voice", "switch"],
+          "description": "Primary input method available"
+        },
+        "viewportConstraint": {
+          "type": "string",
+          "enum": ["none", "small", "medium"],
+          "description": "Viewport size constraint"
+        },
+        "lighting": {
+          "type": "string",
+          "enum": ["normal", "bright", "low-light"],
+          "description": "Ambient lighting conditions"
+        },
+        "bandwidth": {
+          "type": "string",
+          "enum": ["high", "medium", "low"],
+          "description": "Network bandwidth availability"
+        },
+        "timePressure": {
+          "type": "boolean",
+          "description": "Whether the user is under time pressure"
+        },
+        "assistiveTech": {
+          "type": "boolean",
+          "description": "Whether the user relies on assistive technology (screen reader, magnifier)"
+        }
+      }
+    },
+    "thresholdOverrides": {
+      "type": "object",
+      "description": "Adjusted accessibility thresholds for this context",
+      "properties": {
+        "minTouchTarget": { "type": "number", "description": "Minimum touch target in CSS px" },
+        "minContrastRatio": { "type": "number", "description": "Minimum contrast ratio" },
+        "minSpacing": { "type": "number", "description": "Minimum spacing between interactives in px" }
+      }
+    }
+  }
+}

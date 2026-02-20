@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "testing-pack.schema.json",
+  "title": "Testing Pack",
+  "description": "A reusable definition of what to test for a given component pattern",
+  "type": "object",
+  "required": ["id", "name", "component", "variants", "assertions"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique testing pack identifier"
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable pack name"
+    },
+    "description": {
+      "type": "string",
+      "description": "What this pack tests and why"
+    },
+    "component": {
+      "type": "string",
+      "description": "Component ID this pack targets"
+    },
+    "variants": {
+      "type": "array",
+      "description": "Component variants to evaluate",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string" },
+          "props": { "type": "object" },
+          "state": { "type": "string", "enum": ["default", "hover", "focus", "active", "disabled", "error", "readonly", "loading"] }
+        }
+      }
+    },
+    "assertions": {
+      "type": "array",
+      "description": "Accessibility assertions to evaluate",
+      "items": {
+        "type": "object",
+        "required": ["signal", "check"],
+        "properties": {
+          "signal": {
+            "type": "string",
+            "enum": ["color-contrast", "touch-target", "spacing", "label", "keyboard", "state", "focus", "error-handling"]
+          },
+          "check": { "type": "string", "description": "What to verify" },
+          "wcag": { "type": "string", "description": "WCAG SC reference" },
+          "threshold": { "type": "number", "description": "Numeric threshold if applicable" }
+        }
+      }
+    },
+    "contexts": {
+      "type": "array",
+      "description": "Context IDs to simulate",
+      "items": { "type": "string" }
+    },
+    "antiPaths": {
+      "type": "array",
+      "description": "Known failure modes to check for",
+      "items": {
+        "type": "object",
+        "required": ["name", "check"],
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "check": { "type": "string" }
+        }
+      }
+    }
+  }
+}
