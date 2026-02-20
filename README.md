@@ -32,8 +32,8 @@ Extract  -->  Signals  -->  Map  -->  Simulate  -->  Generate
 ```
 
 1. **Extract** — Pull component metadata from design system sources (Figma, Storybook, tokens)
-2. **Signals** — Derive accessibility and usability signals from extracted data
-3. **Map** — Map signals to testable assertions and WCAG criteria
+2. **Signals** — Derive accessibility and usability signals (WCAG 2.x contrast ratio + APCA Lc) from extracted data
+3. **Map** — Map signals to testable assertions and WCAG criteria (including WCAG 3.0-draft APCA thresholds)
 4. **Simulate** — Run context-aware simulations (e.g. mobile touch, low-vision, keyboard-only)
 5. **Generate** — Produce structured findings with severity, evidence, and recommendations
 
@@ -46,11 +46,12 @@ Extract  -->  Signals  -->  Map  -->  Simulate  -->  Generate
 
 ## Accessibility Standards
 
-Based on [WCAG 2.2](https://www.w3.org/TR/WCAG22/):
+Based on [WCAG 2.2](https://www.w3.org/TR/WCAG22/) and [WCAG 3.0 (draft)](https://www.w3.org/TR/wcag-3.0/):
 
 - **1.4.3** Contrast (Minimum) — 4.5:1 for normal text, 3:1 for large text (Level AA)
 - **1.4.6** Contrast (Enhanced) — 7:1 for normal text, 4.5:1 for large text (Level AAA)
 - **1.4.11** Non-text Contrast — 3:1 for UI components and graphical objects (Level AA)
+- **APCA** (WCAG 3.0-draft) — Perceptually uniform contrast using Lightness Contrast (Lc) scale. Polarity-aware: reports both WCAG 2.x ratio and APCA Lc for each color pair. Threshold: |Lc 60| for body text.
 - **2.1.1** Keyboard — All functionality operable via keyboard (Level A)
 - **2.4.3** Focus Order — Logical and meaningful navigation sequence (Level A)
 - **2.4.7** Focus Visible — Keyboard focus indicator is visible (Level AA)
