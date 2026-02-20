@@ -45,7 +45,7 @@
           },
           "signal": {
             "type": "string",
-            "enum": ["color-contrast", "touch-target", "spacing", "label", "keyboard", "state", "focus", "error-handling"],
+            "enum": ["color-contrast", "apca-contrast", "touch-target", "spacing", "label", "keyboard", "state", "focus", "error-handling"],
             "description": "Signal type that triggered this finding"
           },
           "severity": {

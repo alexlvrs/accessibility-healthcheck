@@ -26,7 +26,9 @@ export function simulate(assertions: Assertion[]): SimulationResult[] {
       const adjustedThreshold = overrides[assertion.signal.type] ?? assertion.threshold;
       const pass =
         typeof assertion.signal.value === "number"
-          ? assertion.signal.value >= adjustedThreshold
+          ? assertion.signal.type === "apca-contrast"
+            ? Math.abs(assertion.signal.value as number) >= adjustedThreshold
+            : assertion.signal.value >= adjustedThreshold
           : assertion.pass;
 
       results.push({
